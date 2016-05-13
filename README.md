@@ -1,7 +1,7 @@
 # System Keyboard Lock
 API that allows websites to capture and use reserved keys and keyboard shortcuts.
 
-See [EXPLAINER](https://github.com/jondahlke/system-keyboard-lock/EXPLAINER.md) for proposed solution.
+See [EXPLAINER](https://github.com/jondahlke/system-keyboard-lock/blob/master/EXPLAINER.md) for proposed solution.
 
 ## Problem
 Richly interactive web sites, games and remote desktop/application streaming experiences want to provide an immersive, full screen experience. Sites need access to special keys and keyboard shortcuts in full screen, such as Escape, Alt+Tab, Cmd+`, Ctrl+N, for easily or efficiently navigating through windows, tabs, applications, menus and gaming functionality. Today this isn’t possible, as these keys are typically captured by the browser or underlying operating system, making it challenging for developers to embrace the web for these types of applications. This repo explores ideas for a new system keyboard lock API, that enable websites to capture and use all available keys and keyboard combinations allowed by the OS.
