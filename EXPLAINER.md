@@ -2,9 +2,9 @@
 When a site is in full screen, it will be permitted to request a system keyboard lock allowing it to override all keys as well as system-level shortcuts. Users exit the keyboard lock through an exit gesture, such as holding down the Escape key for 2 seconds.
 
 ## Requirements
-* System keyboard lock is restricted to full screen and secure origins.
-* The site will need to request system keyboard lock capabilities once in full screen, otherwise the request will be automatically denied.
-* Sites and browsers can optionally add permission, consent or reminder UI to ensure users understand how to exit system keyboard lock mode.
+* System keyboard lock is only available when the document is in [fullscreen mode](https://fullscreen.spec.whatwg.org/#fullscreen-enabled-flag), and only from a secure origin.
+* Browsers should optionally add permission, consent or reminder UI to ensure users understand how to exit system keyboard lock mode.
+* If the user holds the Escape key for 2 seconds, both system keyboard lock and fullscreen should be exited. This shortcut cannot be captured by the site.
 * Once system keyboard lock is granted, the browser will disable the typical behavior of the system keys and shortcuts and make them available to the web site. Potential keys and shortcuts include:
   * Escape
   * Super (e.g., Windows key, ChromeOS search key)
@@ -18,7 +18,7 @@ When a site is in full screen, it will be permitted to request a system keyboard
 ## Sample Code
 __Requesting keyboard lock__
 ```javascript
-document.requestSystemKeyboardLock();
+document.querySelector('body').requestFullscreen().then(()document.requestSystemKeyboardLock());
 document.addEventListener(‘keydown’, event => {
   event.preventDefault();
   game.toggleMenu();
@@ -35,7 +35,7 @@ __User experience__
 
 __Monitoring keyboard lock__
 ```javascript
-document.addEventListener(‘systemKeyboardLockChanged’, event => {
+document.addEventListener(‘systemkeyboardlockchanged’, event => {
   if (event.systemKeyboardLockEnabled) {
     console.log(‘System keyboard lock enabled.’);
   } else {
