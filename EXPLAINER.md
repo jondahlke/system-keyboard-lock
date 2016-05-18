@@ -18,7 +18,10 @@ When a site is in full screen, it will be permitted to request a system keyboard
 ## Sample Code
 __Requesting keyboard lock__
 ```javascript
-document.querySelector('body').requestFullscreen().then(()document.requestSystemKeyboardLock());
+document.querySelector('body').requestFullscreen().then(
+    () => {
+      document.requestSystemKeyboardLock();
+    });
 document.addEventListener(‘keydown’, event => {
   event.preventDefault();
   game.toggleMenu();
