@@ -11,24 +11,30 @@ When a site is in full screen, it will be permitted to request a system keyboard
   * Alt/Cmd+Tab
   * Alt+F4
   * Alt+Backtick
-  * Prt Scn
-  * Mouse 6 & 7
-  * OS-hot corners
+  * PrtScn
   
 ## Sample Code
 __Requesting keyboard lock__
 ```javascript
-document.querySelector('body').requestFullscreen().then(
+document.body.requestFullscreen().then(
     () => {
-      document.requestSystemKeyboardLock();
+      const keys = [
+        { code: 'Escape' },
+        { code: 'Tab', altKey: true },
+        { code: 'Tab', metaKey: true },
+      ];
+      document.requestSystemKeyboardLock(keys);
     });
 document.addEventListener(‘keydown’, event => {
-  event.preventDefault();
-  game.toggleMenu();
+  if (event.code == 'Escape') {
+    game.toggleMenu();
+  }
 }, false);
 ```
 
-Note that preventDefault may not work for some system keys, particularly Alt+Tab on Windows. This is because the APIs for intercepting them require the handler to make a decision whether or not to pass the event to the next handler in the sequence or to consume it. If this depends on whether or not the JavaScript calls preventDefault, it may not be possible to make this decision.
+In the above example, the Escape key is intercepted because it is used to toggle the in-game menu; because this key is intercepted, its usual function (exit full-screen) is suppressed. The default behavior of the Alt+Tab and Meta (a.k.a. Cmd)+Tab keyboard shortcuts (task switch on Windows and Mac, respectively) is also suppressed, although the event handler does not provide alternative functionality in this case. Note that modifiers that are not specified explicitly are wild-cards; specifically, this configuration also suppresses the default behavior of Shift+Alt+Tab and Shift+Meta+Tab (reverse task switch on Windows and Mac, respectively).
+
+Requested keys must be declared in advance, rather than being implicit based on whether or not `preventDefault()` is called by the event handler, because the platform-specific event handlers for system keys typically have to decide whether or not to suppress the default behaviour. If this depends on whether or not the JavaScript calls `preventDefault()` this may not be possible.
 
 __User experience__
 
