@@ -12,7 +12,7 @@ When a site is in full screen, it will be permitted to request a system keyboard
   * Alt+F4
   * Alt+Backtick
   * PrtScn
-  
+
 ## Sample Code
 __Requesting keyboard lock__
 ```javascript
@@ -52,3 +52,7 @@ document.addEventListener(‘systemkeyboardlockchanged’, event => {
   }
 }, false);
 ```
+
+## Sample User Experience Flow
+
+![Example flow of a user entering and exiting this mode](images/sample_ux_flow.png)
