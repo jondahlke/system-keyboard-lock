@@ -34,7 +34,7 @@ document.body.requestFullscreen().then(
         { code: 'Tab', altKey: true },
         { code: 'Tab', metaKey: true },
       ];
-      document.requestSystemKeyboardLock(keys);
+      navigator.requestSystemKeyboardLock(keys);
     });
 document.addEventListener(‘keydown’, event => {
   if (event.code == 'Escape') {
